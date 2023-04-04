@@ -45,7 +45,7 @@ public class LoginFrame extends JFrame
         this.setTitle("Microsoft Authentication");
         this.setSize(750, 750);
         this.setLocationRelativeTo(null);
-
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new JFXPanel());
     }
 
@@ -78,6 +78,7 @@ public class LoginFrame extends JFrame
             if (newValue.contains("access_token")) {
                 this.setVisible(false);
                 this.future.complete(newValue);
+                this.dispose();
             }
         });
         webView.getEngine().setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
