@@ -59,7 +59,7 @@ public class LoginFrame extends JFrame
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                future.completeExceptionally(new MicrosoftAuthenticationException("User closed the authentication window"));
+                future.complete(null);
             }
         });
 

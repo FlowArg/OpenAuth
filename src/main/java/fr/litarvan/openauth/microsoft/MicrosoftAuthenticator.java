@@ -148,10 +148,14 @@ public class MicrosoftAuthenticator {
     public CompletableFuture<MicrosoftAuthResult> loginWithAsyncWebview() {
         String url = String.format("%s?%s", MICROSOFT_AUTHORIZATION_ENDPOINT, http.buildParams(getLoginParams()));
         LoginFrame frame = new LoginFrame();
-
         return frame.start(url).thenApplyAsync(result -> {
             try {
-                return loginWithTokens(extractTokens(result),true);
+                // it can happens if the window is closed too early
+                if (result != null) {
+                    return loginWithTokens(extractTokens(result),true);
+                } else {
+                    return null;
+                }
             } catch (MicrosoftAuthenticationException e) {
                 throw new CompletionException(e);
             }
